@@ -28,7 +28,7 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo 'Performing security scan...'
-                // In a real scenario, you would run your security scan tools here.
+                // In real scenario, you would run your security scan tools here.
             }
         }
         
