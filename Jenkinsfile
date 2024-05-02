@@ -60,7 +60,7 @@ pipeline {
             emailext(
                 subject: "Build ${currentBuild.result}: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
                 body: "Build ${currentBuild.result}: ${env.JOB_NAME} ${env.BUILD_NUMBER} \n\n Check console output at: ${env.BUILD_URL}",
-                to: mitultandon2000@gmail.com, // Replace with your email address
+                to: "mitultandon2000@gmail.com", // Replace with your email address
                 attachLog: true
             )
         }
