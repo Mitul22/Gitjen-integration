@@ -16,9 +16,8 @@ pipeline {
                 echo 'Running integration tests...'
                 // In a real scenario, you would run your integration tests here.
             }
-        }
 
-        post {
+            post {
                 success {
                     emailext (
                         to: "mitultandon2000@gmail.com",
@@ -36,6 +35,7 @@ pipeline {
                     )
                 }
             }
+        }
 
         
         stage('Code Analysis') {
@@ -53,22 +53,23 @@ pipeline {
         }
 
         post {
-                success {
-                    emailext (
-                        to: "mitultandon2000@gmail.com",
-                        subject: "Security scan is completed: Pipeline ${currentBuild.fullDisplayName}",
-                        body: "Security scan in   in ${currentBuild.fullDisplayName} has completed . \n\n Check console output at: ${env.BUILD_URL}", 
-                        attachLog: true
-                    )
-                }
-                failure {
-                    emailext (
-                        to: "mitultandon2000@gmail.com",
-                        subject: "Security scan failure: Pipeline ${currentBuild.fullDisplayName}",
-                        body: "Security scan in ${currentBuild.fullDisplayName} has failed.",
-                        attachLog: true
-                    )
-                }
+            success {
+                emailext (
+                    to: "mitultandon2000@gmail.com",
+                    subject: "Security scan is completed: Pipeline ${currentBuild.fullDisplayName}",
+                    body: "Security scan in   in ${currentBuild.fullDisplayName} has completed . \n\n Check console output at: ${env.BUILD_URL}", 
+                    attachLog: true
+                )
+            }
+            failure {
+                emailext (
+                    to: "mitultandon2000@gmail.com",
+                    subject: "Security scan failure: Pipeline ${currentBuild.fullDisplayName}",
+                    body: "Security scan in ${currentBuild.fullDisplayName} has failed.",
+                    attachLog: true
+                )
+            }
+        }
 
         
         stage('Deploy to Staging') {
@@ -104,5 +105,4 @@ pipeline {
             )
         }
     }
-}
 }
