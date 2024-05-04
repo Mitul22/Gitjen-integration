@@ -17,6 +17,26 @@ pipeline {
                 // In a real scenario, you would run your integration tests here.
             }
         }
+
+        post {
+                success {
+                    emailext (
+                        to: "mitultandon2000@gmail.com",
+                        subject: "Testing of current build  on : Pipeline ${currentBuild.fullDisplayName} ",
+                        body: "Testing of  ${env.TESTING_ENVIRONMENT} in ${currentBuild.fullDisplayName} has completed. \n\n Check console output at: ${env.BUILD_URL}", 
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: "mitultandon2000@gmail.com",
+                        subject: "Testing of current build on : Pipeline ${currentBuild.fullDisplayName}",
+                        body: "Testing of latest commit ${env.TESTING_ENVIRONMENT} in ${currentBuild.fullDisplayName} has failed.",
+                        attachLog: true
+                    )
+                }
+            }
+
         
         stage('Code Analysis') {
             steps {
@@ -31,6 +51,25 @@ pipeline {
                 // In real scenario, you would run your security scan tools here.
             }
         }
+
+        post {
+                success {
+                    emailext (
+                        to: "mitultandon2000@gmail.com",
+                        subject: "Security scan is completed: Pipeline ${currentBuild.fullDisplayName}",
+                        body: "Security scan in   in ${currentBuild.fullDisplayName} has completed . \n\n Check console output at: ${env.BUILD_URL}", 
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: "mitultandon2000@gmail.com",
+                        subject: "Security scan failure: Pipeline ${currentBuild.fullDisplayName}",
+                        body: "Security scan in ${currentBuild.fullDisplayName} has failed.",
+                        attachLog: true
+                    )
+                }
+
         
         stage('Deploy to Staging') {
             steps {
