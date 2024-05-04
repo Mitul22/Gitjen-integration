@@ -50,9 +50,7 @@ pipeline {
                 echo 'Performing security scan...'
                 // In real scenario, you would run your security scan tools here.
             }
-        }
-
-        post {
+            post {
             success {
                 emailext (
                     to: "mitultandon2000@gmail.com",
@@ -70,7 +68,7 @@ pipeline {
                 )
             }
         }
-
+        }
         
         stage('Deploy to Staging') {
             steps {
